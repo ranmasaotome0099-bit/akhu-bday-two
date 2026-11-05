@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Akroti’s Magical Birthday Adventure</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{--p:#ff9ecb;--l:#c9b6ff;--d:#7a4fd6;--ink:#4a2f7a;--card:rgba(255,255,255,.82);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;max-width:100vw;overflow-x:hidden;font-family:Quicksand,system-ui,sans-serif;color:var(--ink);background:#e9d9ff}
+body{background:linear-gradient(180deg,#a99cff 0%,#d9a8f5 40%,#ffc3dd 75%,#ffe3ef 100%);background-attachment:fixed;min-height:100dvh}
+#root{position:relative;min-height:100dvh}
+.fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.fx i{position:absolute;font-style:normal;animation:tw 3s ease-in-out infinite}
+.fx b{position:absolute;bottom:-40px;font-weight:400;animation:rise linear infinite;opacity:.7}
+@keyframes tw{50%{opacity:.2;transform:scale(.6)}}
+@keyframes rise{to{transform:translateY(-115vh) rotate(30deg)}}
+.hills{position:fixed;left:0;right:0;bottom:0;height:22vh;z-index:0;pointer-events:none;background:radial-gradient(120% 100% at 20% 100%,#b58be8 40%,transparent 41%),radial-gradient(120% 100% at 85% 110%,#e58fc4 40%,transparent 41%)}
+.scr{position:relative;z-index:1;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 16px 40px;text-align:center;gap:14px;animation:sc .6s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}@keyframes sc{from{opacity:0}}
+h1,h2{margin:0;font-family:Pacifico,cursive;font-weight:400;color:#fff;text-shadow:0 3px 14px #8a55e0}
+h1{font-size:clamp(28px,8vw,52px)}h2{font-size:clamp(22px,6vw,36px)}
+p{margin:0;font-size:clamp(15px,4vw,19px);font-weight:700}
+.card{background:var(--card);border-radius:28px;padding:18px;max-width:560px;width:100%;box-shadow:0 10px 40px rgba(122,79,214,.3);backdrop-filter:blur(6px)}
+.btn{border:0;cursor:pointer;font:700 clamp(16px,4.5vw,20px) Quicksand,sans-serif;color:#fff;padding:15px 30px;border-radius:40px;background:linear-gradient(135deg,#ff7eb8,#a779ff);box-shadow:0 6px 20px rgba(167,121,255,.6);transition:transform .15s}
+.btn:active{transform:scale(.94)}.btn.alt{background:#fff;color:var(--d)}
+.pulse{animation:pu 1.6s ease-in-out infinite}@keyframes pu{50%{transform:scale(1.07)}}
+.char{width:min(46vw,190px);animation:fl 4s ease-in-out infinite;filter:drop-shadow(0 8px 12px rgba(122,79,214,.35))}
+@keyframes fl{50%{transform:translateY(-12px)}}
+.icons{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ic{aspect-ratio:1;border-radius:22px;border:3px solid #fff;font-size:clamp(26px,8vw,38px);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffd1e8,#d9c8ff);cursor:pointer}
+.ic.lock{filter:grayscale(.8);opacity:.55;cursor:not-allowed}.ic.next{animation:pu 1.4s infinite;box-shadow:0 0 18px #fff}.ic.done{background:linear-gradient(135deg,#9af0c1,#c6f7dc)}
+.bar{height:12px;border-radius:9px;background:#fff8;overflow:hidden}.bar>div{height:100%;background:linear-gradient(90deg,#ff7eb8,#a779ff);transition:width .4s}
+.field{position:relative;width:100%;max-width:560px;height:min(60dvh,460px);border-radius:28px;overflow:hidden;background:linear-gradient(180deg,#fff6,#fff3);border:3px solid #fff;touch-action:manipulation;user-select:none}
+.fall{position:absolute;top:-50px;font-size:42px;cursor:pointer;animation:fall linear forwards;padding:8px}
+@keyframes fall{from{top:-50px}to{top:104%}}
+.star{position:absolute;font-size:42px;cursor:pointer;animation:pop 2.8s ease-in-out forwards;padding:8px;filter:drop-shadow(0 0 8px #fff)}
+@keyframes pop{0%{transform:scale(0)}15%{transform:scale(1.1)}50%{transform:scale(.95) translateY(-14px)}90%{opacity:1}100%{transform:scale(.9) translateY(-30px);opacity:0}}
+.obj{position:absolute;font-size:clamp(34px,9vw,52px);cursor:pointer;transition:transform .2s;padding:4px}
+.obj.w{animation:wg .5s}@keyframes wg{25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
+.obj.hint{filter:drop-shadow(0 0 12px #ffe45e)}
+.found{position:absolute;font-size:60px;animation:fnd 1s ease both}@keyframes fnd{from{transform:scale(0) rotate(-90deg)}}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:480px}
+.mc{aspect-ratio:3/4;perspective:600px;cursor:pointer}.mc>div{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;-webkit-transform-style:preserve-3d}
+.mc.f>div{transform:rotateY(180deg)}.mc span{position:absolute;inset:0;border-radius:16px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;font-size:clamp(28px,9vw,44px);border:3px solid #fff}
+.mc .b{background:linear-gradient(135deg,#ff9ecb,#b08cff);color:#fff}.mc .fr{background:#fff;transform:rotateY(180deg)}.mc.m .fr{background:#d7ffe8}
+.cake{width:min(86vw,340px)}
+.fl{transform-origin:50% 100%;animation:fk .35s ease-in-out infinite alternate}@keyframes fk{to{transform:scale(1.12,.9) rotate(4deg)}}
+.out{animation:smk 2s ease-out forwards}@keyframes smk{to{transform:translateY(-40px) scale(2);opacity:0}}
+.modal{position:fixed;inset:0;background:#4a2f7a99;z-index:20;display:flex;align-items:center;justify-content:center;padding:20px}
+.mtog{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:10px;z-index:30;width:46px;height:46px;border-radius:50%;border:0;background:#fffc;font-size:22px;cursor:pointer}
+.conf{position:fixed;top:-30px;z-index:5;pointer-events:none;animation:cf linear forwards}@keyframes cf{to{transform:translateY(112vh) rotate(720deg)}}
+.rv{opacity:0;animation:fin 1s ease forwards}
+.env{width:min(80vw,320px);aspect-ratio:1.5;background:linear-gradient(135deg,#ffb3d4,#ff8fc0);border-radius:14px;position:relative;cursor:pointer;box-shadow:0 12px 30px #a54e9a66;display:flex;align-items:center;justify-content:center;font-size:56px;animation:fl 3s infinite}
+.env:before{content:"";position:absolute;inset:0;border-radius:14px;background:linear-gradient(to bottom right,transparent 49%,#ff7eb877 50%) ,linear-gradient(to bottom left,transparent 49%,#ff7eb877 50%);clip-path:polygon(0 0,100% 0,50% 60%)}
+.letter{max-height:72dvh;overflow-y:auto;text-align:left;font:500 clamp(16px,4.2vw,18px)/1.85 Quicksand,sans-serif;background:#fffaf6;border-radius:22px;padding:22px 20px;border:2px dashed #ffb3d4;-webkit-overflow-scrolling:touch}
+.letter p{font:inherit;margin:0 0 1.15em;white-space:pre-wrap}
+.letter h3{font:400 26px Pacifico,cursive;color:#e0529a;margin:0 0 12px;text-align:center}
+.small{font-size:14px;opacity:.9}
+.lvl{position:fixed;inset:0;z-index:15;display:flex;align-items:center;justify-content:center;background:radial-gradient(#b08cffee,#ff9ecbdd);pointer-events:none;animation:lv 1.9s ease forwards;text-align:center}
+@keyframes lv{0%{opacity:0}15%{opacity:1}75%{opacity:1}100%{opacity:0;visibility:hidden}}
+.plus{position:absolute;font-weight:700;font-size:24px;color:#fff;text-shadow:0 2px 6px #a24cc9;pointer-events:none;animation:pl .8s ease forwards;z-index:3}
+@keyframes pl{to{transform:translateY(-50px);opacity:0}}
+.gold{filter:drop-shadow(0 0 12px #ffd34d);font-size:52px!important}
+.obj.seen{opacity:.45}
+.bar>.fillbar{width:100%;transform-origin:left;animation:fb 2.6s linear both}
+@keyframes fb{from{transform:scaleX(0)}}
+</style></head>
+<body><div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>
+const h=React.createElement,{useState,useEffect,useRef,useCallback}=React;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+/* ---------- audio (synthesized, no files) ---------- */
+let AC=null,musicOn=true,mTimer=null,mGain=null,ducked=false;
+function ac(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();}catch(e){}return AC}
+function tone(f,t=.25,v=.12,type="sine",dest){const c=ac();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+t);o.connect(g);g.connect(dest||c.destination);o.start();o.stop(c.currentTime+t)}
+const sfx={click:()=>tone(660,.12,.1),win:()=>[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.4,.12,"triangle"),i*110)),pop:()=>tone(880+rnd(0,300),.15,.09,"triangle"),puff:()=>tone(220,.3,.08,"sawtooth")};
+function startMusic(){const c=ac();if(!c||mTimer)return;mGain=c.createGain();mGain.gain.value=(musicOn&&!ducked)?.5:0;mGain.connect(c.destination);
+const M=[[392,.75],[392,.25],[440,1],[392,1],[523,1],[494,2],[392,.75],[392,.25],[440,1],[392,1],[587,1],[523,2],[392,.75],[392,.25],[784,1],[659,1],[523,1],[494,1],[440,1],[698,.75],[698,.25],[659,1],[523,1],[587,1],[523,2]];
+let i=0;const step=()=>{const[f,b]=M[i];tone(f,Math.max(.7,b*.9),.09,"triangle",mGain);tone(f*2,.5,.025,"sine",mGain);if(i%6===0)tone(f/2,1.4,.04,"sine",mGain);let w=b*480;i++;if(i>=M.length){i=0;w+=2500}mTimer=setTimeout(step,w)};step()}
+function setMusic(on){musicOn=on;if(mGain)mGain.gain.value=(on&&!ducked)?.5:0}
+function duck(d){ducked=d;if(mGain)mGain.gain.value=(musicOn&&!d)?.5:0}
+/* ---------- shared bits ---------- */
+function Bg(){const s=useRef([...Array(28)].map((_,i)=>({l:rnd(0,100),t:rnd(0,70),d:rnd(0,3),c:["✦","✧","⋆","✨"][i%4],z:rnd(10,22)}))).current;
+const hs=useRef([...Array(9)].map((_,i)=>({l:rnd(2,95),d:rnd(7,15),dl:rnd(0,10),c:["♡","💗","🌸","🦋","💜"][i%5],z:rnd(18,32)}))).current;
+return h(React.Fragment,null,h("div",{className:"fx"},s.map((x,i)=>h("i",{key:i,style:{left:x.l+"%",top:x.t+"%",animationDelay:x.d+"s",fontSize:x.z,color:"#fff"}},x.c)),hs.map((x,i)=>h("b",{key:"h"+i,style:{left:x.l+"%",animationDuration:x.d+"s",animationDelay:x.dl+"s",fontSize:x.z}},x.c))),h("div",{className:"hills"}))}
+function Girl(){return h("svg",{className:"char",viewBox:"0 0 200 240"},
+h("ellipse",{cx:100,cy:225,rx:62,ry:10,fill:"#7a4fd633"}),
+h("path",{d:"M55 120 Q100 90 145 120 L165 215 Q100 235 35 215Z",fill:"#ffb3d9",stroke:"#fff",strokeWidth:4}),
+h("path",{d:"M70 150 Q100 175 130 150 L142 205 Q100 218 58 205Z",fill:"#d9c3ff"}),
+h("path",{d:"M30 100 Q20 20 100 18 Q180 20 170 100 Q175 150 150 175 L140 100 Q100 70 60 100 L50 175 Q25 150 30 100Z",fill:"#8e63e8"}),
+h("circle",{cx:100,cy:90,r:48,fill:"#ffe6d6"}),
+h("path",{d:"M52 85 Q70 35 100 45 Q135 35 150 85 Q120 55 100 66 Q75 55 52 85Z",fill:"#8e63e8"}),
+h("ellipse",{cx:82,cy:96,rx:8,ry:11,fill:"#4a2f7a"}),h("ellipse",{cx:118,cy:96,rx:8,ry:11,fill:"#4a2f7a"}),
+h("circle",{cx:85,cy:92,r:3.5,fill:"#fff"}),h("circle",{cx:121,cy:92,r:3.5,fill:"#fff"}),
+h("ellipse",{cx:68,cy:112,rx:9,ry:5,fill:"#ff9ecb",opacity:.7}),h("ellipse",{cx:132,cy:112,rx:9,ry:5,fill:"#ff9ecb",opacity:.7}),
+h("path",{d:"M91 118 Q100 127 109 118",stroke:"#d6477f",strokeWidth:3,fill:"none",strokeLinecap:"round"}),
+h("path",{d:"M60 48 l8 -22 l10 20 l12 -22 l12 22 l10 -20 l8 22Z",fill:"#ffd966",stroke:"#fff",strokeWidth:2}),
+h("circle",{cx:100,cy:38,r:5,fill:"#ff7eb8"}))}
+function Confetti({n=60}){const a=useRef([...Array(n)].map(()=>({l:rnd(0,92),d:rnd(3,7),dl:rnd(0,3),c:["🎉","💖","✨","🌸","⭐","💜","🎊"][Math.floor(rnd(0,7))],z:rnd(16,30)}))).current;
+return a.map((x,i)=>h("span",{key:i,className:"conf",style:{left:x.l+"%",animationDuration:x.d+"s",animationDelay:x.dl+"s",fontSize:x.z}},x.c))}
+/* ---------- games ---------- */
+function Win({text,last,onNext}){useEffect(()=>{sfx.win();const t=setTimeout(onNext,2600);return()=>clearTimeout(t)},[]);
+return h("div",{className:"card rv"},h("h2",{style:{color:"#e0529a",textShadow:"none"}},text),h("p",{style:{marginTop:8}},last?"Opening your final surprise… 🎂":"Level complete! Next level starting… ✨"),h("div",{className:"bar",style:{marginTop:10}},h("div",{className:"fillbar"})))}
+function Lvl({n,t,e}){return h("div",{className:"lvl"},h("div",null,h("div",{style:{fontSize:64}},e),h("h1",null,"Level "+n),h("p",{style:{color:"#fff",marginTop:6}},t)))}
+function Catcher({kinds,bonus,target,label,tip,cls,spawn,life,limit,win,last,onWin}){
+const[items,setItems]=useState([]),[score,setScore]=useState(0),[t,setT]=useState(limit||0),[lost,setLost]=useState(false),[run,setRun]=useState(1),[pops,setPops]=useState([]),[combo,setCombo]=useState(0),id=useRef(0),fr=useRef(null);
+const done=score>=target;
+useEffect(()=>{if(done||lost)return;const sp=setInterval(()=>{const k=id.current++,b=Math.random()<.16;setItems(a=>[...a.slice(-12),{k,b,e:b?bonus.e:kinds[Math.floor(rnd(0,kinds.length))],x:rnd(4,80),y:rnd(5,74),d:rnd(life[0],life[1])}]);setTimeout(()=>setItems(a=>a.filter(i=>i.k!==k)),limit?2800:life[1]*1000+200)},spawn);return()=>clearInterval(sp)},[done,lost,run]);
+useEffect(()=>{if(!limit||done||lost)return;const tm=setInterval(()=>setT(x=>Math.max(0,x-1)),1000);return()=>clearInterval(tm)},[done,lost,run]);
+useEffect(()=>{if(limit&&t===0&&!done)setLost(true)},[t]);
+useEffect(()=>{if(done)setItems([])},[done]);
+const hit=(i,e)=>{sfx.pop();const r=fr.current.getBoundingClientRect(),n=i.b?bonus.v:1,k=id.current++;setItems(a=>a.filter(x=>x.k!==i.k));setScore(s=>s+n);setCombo(c=>c+1);setPops(a=>[...a,{k,x:e.clientX-r.left-10,y:e.clientY-r.top-20,t:i.b?"+"+n+" 🎉":"+1"}]);setTimeout(()=>setPops(a=>a.filter(p=>p.k!==k)),800)};
+const miss=k=>{setItems(a=>a.filter(i=>i.k!==k));setCombo(0)};
+const retry=()=>{setScore(0);setItems([]);setT(limit||0);setLost(false);setCombo(0);setRun(r=>r+1)};
+return h("div",{style:{width:"100%",maxWidth:560,display:"flex",flexDirection:"column",gap:12,alignItems:"center"}},
+h("p",null,label+": "+Math.min(score,target)+"/"+target+(limit?"  ⏳ "+t+"s":"")),
+h("div",{className:"field",ref:fr},items.map(i=>h("span",{key:i.k,className:cls+(i.b?" gold":""),onPointerDown:e=>hit(i,e),onAnimationEnd:()=>miss(i.k),style:{left:i.x+"%",top:cls==="fall"?undefined:i.y+"%",animationDuration:cls==="fall"?i.d+"s":undefined}},i.e)),pops.map(p=>h("span",{key:p.k,className:"plus",style:{left:p.x,top:p.y}},p.t))),
+done&&h(Win,{text:win,last,onNext:onWin}),
+lost&&!done&&h("div",{className:"card"},h("p",null,"Time’s up, but no worries — try again! ♡"),h("br"),h("button",{className:"btn",onClick:retry},"Retry")),
+!done&&!lost&&h("p",{className:"small"},combo>=3?"🔥 Combo x"+combo+"!":tip))}
+function Hidden({onWin}){
+const objs=useRef([["🌷",8,12],["🍄",60,15],["🌳",30,45],["🪨",72,50],["🌼",12,68],["🏡",55,72],["🌿",78,20],["🧺",38,12],["🪴",20,34],["🌻",70,34]]).current;
+const target=useRef(Math.floor(rnd(0,10))).current;
+const[w,setW]=useState(-1),[found,setFound]=useState(false),[hint,setHint]=useState(false),[tries,setTries]=useState(0),[seen,setSeen]=useState([]),[tip,setTip]=useState("Tap things in the garden to find the glowing heart 💗");
+useEffect(()=>{const a=setTimeout(()=>setHint(true),9000);return()=>clearTimeout(a)},[]);
+const tap=i=>{if(found)return;sfx.click();setW(i);setTimeout(()=>setW(-1),500);setTries(t=>t+1);if(i===target){setFound(true);return}setSeen(a=>a.includes(i)?a:[...a,i]);const d=Math.hypot(objs[i][1]-objs[target][1],objs[i][2]-objs[target][2]);setTip(d<22?"🔥 Very hot! So close!":d<42?"😊 Getting warmer…":"🥶 Cold… try somewhere else")};
+return h("div",{style:{width:"100%",maxWidth:560,display:"flex",flexDirection:"column",gap:12,alignItems:"center"}},
+h("p",null,"Taps: "+tries+"   "+tip),
+h("div",{className:"field",style:{background:"linear-gradient(180deg,#d9f5ff55,#c4f5d577)"}},objs.map((o,i)=>{const near=hint&&(Math.abs(i-target)<=1);return h("span",{key:i,className:"obj"+(w===i?" w":"")+(seen.includes(i)?" seen":"")+(near&&!found?" hint":""),onClick:()=>tap(i),style:{left:o[1]+"%",top:o[2]+"%"}},o[0])}),
+found&&h("span",{className:"found",style:{left:objs[target][1]+"%",top:objs[target][2]-6+"%"}},"💖")),
+!found&&h("p",{className:"small"},hint?"A soft glow is near the heart… ✨":"Hot or cold clues will guide you!"),
+found&&h(Win,{text:"You found a little piece of my heart!",last:false,onNext:onWin}))}
+function Memory({onWin}){
+const mk=()=>["⭐","🌸","💗","🦋","⭐","🌸","💗","🦋"].map((e,i)=>({e,i})).sort(()=>Math.random()-.5);
+const[cards,setCards]=useState(mk),[open,setOpen]=useState([]),[ok,setOk]=useState([]),[moves,setMoves]=useState(0),[peek,setPeek]=useState(true),[msg,setMsg]=useState("Memorize the cards! 👀"),[run,setRun]=useState(0),lock=useRef(true);
+useEffect(()=>{lock.current=true;setPeek(true);setMsg("Memorize the cards! 👀");const t=setTimeout(()=>{setPeek(false);lock.current=false;setMsg("Find the matching pairs ✨")},2000);return()=>clearTimeout(t)},[run]);
+const done=ok.length===8;
+const flip=n=>{if(lock.current||open.includes(n)||ok.includes(n))return;sfx.click();const o=[...open,n];setOpen(o);if(o.length===2){setMoves(m=>m+1);lock.current=true;if(cards[o[0]].e===cards[o[1]].e){setTimeout(()=>{setOk(a=>[...a,...o]);setOpen([]);lock.current=false;sfx.pop();setMsg("Match! 💖")},500)}else setTimeout(()=>{setOpen([]);lock.current=false;setMsg("Oops, try again 🌸")},900)}};
+const st=moves<=6?"⭐⭐⭐":moves<=9?"⭐⭐":"⭐";
+return h("div",{style:{width:"100%",maxWidth:480,display:"flex",flexDirection:"column",gap:14,alignItems:"center"}},
+h("p",null,"Moves: "+moves+"   Pairs: "+ok.length/2+"/4"),h("p",{className:"small"},msg),
+h("div",{className:"mem"},cards.map((c,n)=>h("div",{key:n,className:"mc"+((peek||open.includes(n)||ok.includes(n))?" f":"")+(ok.includes(n)?" m":""),onClick:()=>flip(n)},h("div",null,h("span",{className:"b"},"♡"),h("span",{className:"fr"},c.e))))),
+done&&h(Win,{text:"Your memory is magical! "+st,last:false,onNext:onWin}),
+!done&&h("button",{className:"btn alt",style:{padding:"10px 22px"},onClick:()=>{setCards(mk());setOpen([]);setOk([]);setMoves(0);setRun(r=>r+1)}},"Restart ↺"))}
+const GAMES=[
+{ic:"💗",e:"💗",name:"Catch the Hearts",t:"Catch the Hearts",el:f=>h(Catcher,{kinds:["💗","💖","💝","💕"],bonus:{e:"💛",v:3},target:10,label:"Hearts",tip:"Tap the hearts! Golden 💛 hearts are worth 3!",cls:"fall",spawn:700,life:[3,4.2],win:"Yay! You caught all the love! ♡",last:false,onWin:f})},
+{ic:"🔍",e:"🔍",name:"Find the Hidden Heart",t:"Find the Hidden Heart",el:f=>h(Hidden,{onWin:f})},
+{ic:"🃏",e:"🃏",name:"Memory Match",t:"Memory Match",el:f=>h(Memory,{onWin:f})},
+{ic:"⭐",e:"⭐",name:"Save the Stars",t:"Save the Stars",el:f=>h(Catcher,{kinds:["⭐","🌟","✨"],bonus:{e:"🌈",v:3},target:10,label:"Stars",tip:"Tap the stars! Rainbows 🌈 are worth 3!",cls:"star",spawn:750,life:[2,2],limit:45,win:"You collected all the magical stars!",last:true,onWin:f})}];
+/* ---------- cake + mic ---------- */
+function Cake({onDone}){
+const[lit,setLit]=useState([1,1,1,1,1]),[modal,setModal]=useState(false),[mode,setMode]=useState("idle"),[msg,setMsg]=useState(""),[fallback,setFallback]=useState(false);
+const st=useRef({}).current,litRef=useRef(lit);litRef.current=lit;
+const stop=useCallback(()=>{cancelAnimationFrame(st.raf);if(st.stream){st.stream.getTracks().forEach(t=>t.stop());st.stream=null}if(st.src){try{st.src.disconnect()}catch(e){}st.src=null}duck(false);},[]);
+useEffect(()=>stop,[]);
+const out=i=>{setLit(a=>{if(!a[i])return a;const b=[...a];b[i]=0;return b});if(!st.stream)sfx.puff()};
+useEffect(()=>{if(lit.every(x=>!x)){stop();setMode("done");const t=setTimeout(onDone,1800);return()=>clearTimeout(t)}},[lit]);
+const begin=async()=>{setModal(false);
+if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!(window.AudioContext||window.webkitAudioContext)){setFallback(true);setMsg("Microphone isn’t available here — tap each candle instead ♡");return}
+try{setMode("cal");setMsg("Getting ready… stay quiet for a second 🤫");
+const s=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});st.stream=s;
+const C=ac();if(!C)throw new Error("noaudio");if(C.state==="suspended")await C.resume();
+const an=C.createAnalyser();an.fftSize=1024;const src=C.createMediaStreamSource(s);src.connect(an);st.src=src;duck(true);const buf=new Uint8Array(an.fftSize);
+const rms=()=>{an.getByteTimeDomainData(buf);let x=0;for(const v of buf){const d=(v-128)/128;x+=d*d}return Math.sqrt(x/buf.length)};
+let sum=0,n=0,t0=performance.now(),thr=.12,acc=0,last=t0;
+const loop=now=>{const r=rms(),dt=now-last;last=now;
+if(now-t0<1200){sum+=r;n++}else{if(n){const base=sum/n;thr=Math.max(base*2.6,base+.04);n=0;sum=0;setMode("blow");setMsg("Now blow gently toward your microphone 💨")}
+if(now<st.cool){acc=0}else if(r>thr)acc+=dt;else acc=Math.max(0,acc-dt*.5);
+if(acc>380){acc=0;st.cool=now+700;const i=litRef.current.findIndex(x=>x);if(i>=0)out(i)}}
+st.raf=requestAnimationFrame(loop)};st.raf=requestAnimationFrame(loop)}
+catch(e){stop();setFallback(true);setMode("idle");setMsg(e&&e.name==="NotAllowedError"?"Microphone permission was denied — no problem! Tap the candles instead ♡":"I couldn’t use the microphone — tap the candles instead ♡")}};
+const xs=[78,119,160,201,242];
+return h("div",{className:"scr"},
+h("h2",null,"You did it, Akroti!"),h("p",null,"One last little wish before your surprise..."),h("p",{style:{fontSize:22}},"Blow out the candles! ♡"),
+h("svg",{className:"cake",viewBox:"0 0 320 280"},
+h("ellipse",{cx:160,cy:262,rx:140,ry:12,fill:"#7a4fd644"}),
+h("rect",{x:30,y:180,width:260,height:78,rx:20,fill:"#b58bf0",stroke:"#fff",strokeWidth:4}),
+h("rect",{x:60,y:120,width:200,height:70,rx:18,fill:"#ff9ecb",stroke:"#fff",strokeWidth:4}),
+h("path",{d:"M60 138 q15 22 30 0 q15 22 30 0 q15 22 30 0 q15 22 30 0 q15 22 30 0 q15 22 30 0 q10 16 20 0 v-20 h-200Z",fill:"#fff"}),
+h("path",{d:"M30 198 q16 22 32 0 q16 22 32 0 q16 22 32 0 q16 22 32 0 q16 22 32 0 q16 22 32 0 q16 22 32 0 v-18 h-260Z",fill:"#fff"}),
+[70,160,250].map((x,i)=>h("text",{key:i,x,y:235,fontSize:22,textAnchor:"middle"},["🌸","💗","⭐"][i])),
+xs.map((x,i)=>h("g",{key:i,onClick:()=>fallback&&out(i),style:{cursor:fallback?"pointer":"default"}},
+h("rect",{x:x-5,y:88,width:10,height:34,rx:4,fill:i%2?"#fff":"#ffd1e8",stroke:"#d9a8f5",strokeWidth:1.5}),
+lit[i]?h("g",{className:"fl"},h("path",{d:`M${x} 62 q-12 14 -7 24 a7 7 0 0 0 14 0 q5 -10 -7 -24z`,fill:"#ffb84d"}),h("path",{d:`M${x} 74 q-5 6 -3 11 a3.5 3.5 0 0 0 7 0 q1 -5 -4 -11z`,fill:"#fff3a8"})):h("circle",{key:"s",className:"out",cx:x,cy:78,r:6,fill:"#fff",opacity:.8}),
+fallback&&h("rect",{x:x-18,y:55,width:36,height:70,fill:"transparent"})))),
+mode==="done"?h("p",{className:"rv"},"All wishes sent! ✨"):null,
+msg&&h("p",{className:"small"},msg),
+mode==="idle"&&!fallback&&h("button",{className:"btn pulse",onClick:()=>{sfx.click();setModal(true)}},"Blow the Candles 💨"),
+fallback&&mode!=="done"&&h("p",{className:"small"},"Tap each candle (or the button) to blow it out 🕯️"),
+fallback&&mode!=="done"&&h("button",{className:"btn",onClick:()=>{const i=lit.findIndex(x=>x);if(i>=0)out(i)}},"Tap to Blow 🌬️"),
+(mode==="blow"||mode==="cal")&&h("button",{className:"btn alt",style:{padding:"10px 22px"},onClick:()=>{stop();setFallback(true);setMode("idle");setMsg("Okay! Tap the candles instead ♡")}},"Use Tap to Blow instead"),
+mode==="blow"&&h("p",{className:"small"},"Tip: hold your phone close and blow steadily. Too quiet? Blow a little harder."),
+modal&&h("div",{className:"modal"},h("div",{className:"card"},h("h2",{style:{color:"#e0529a",textShadow:"none"}},"Use your microphone? 🎤"),h("br"),h("p",{className:"small",style:{fontSize:16}},"Your browser will ask to use the microphone so I can hear you blow. Nothing is recorded, saved or uploaded, and the mic switches off as soon as the candles are out."),h("br"),h("button",{className:"btn",onClick:begin},"Allow & Blow ♡"),h("br"),h("br"),h("button",{className:"btn alt",onClick:()=>{setModal(false);setFallback(true);setMsg("No problem — tap the candles instead ♡")}},"Not now, I’ll tap"))))}
+/* ---------- celebration & letter ---------- */
+function Celebrate({onNext}){
+const[fw,setFw]=useState([]);
+useEffect(()=>{sfx.win();const t=setInterval(()=>setFw(a=>[...a.slice(-5),{k:Math.random(),x:rnd(10,90),y:rnd(8,45),c:["🎆","🎇","✨","💥"][Math.floor(rnd(0,4))]}]),700);return()=>clearInterval(t)},[]);
+return h("div",{className:"scr"},h(Confetti,{n:70}),fw.map(f=>h("span",{key:f.k,className:"rv",style:{position:"fixed",left:f.x+"%",top:f.y+"%",fontSize:48,zIndex:4,pointerEvents:"none",animationDuration:".5s"}},f.c)),
+h(Girl),h("h1",{className:"rv",style:{animationDelay:".4s"}},"HAPPY BIRTHDAY"),h("h2",{className:"rv",style:{animationDelay:"1.6s"}},"MY DEAREST AKROTI!"),
+h("p",{className:"rv",style:{animationDelay:"2.8s",maxWidth:420}},"May your life always be filled with happiness, love and endless magic. ♡"),
+h("div",{className:"rv",style:{animationDelay:"4s"}},h("button",{className:"btn pulse",onClick:()=>{sfx.click();onNext()}},"Open Your Special Letter 💌")))}
+const LETTER=[
+"Happy Birthday amar Akhuuuuu! 😭❤️🎂",
+"Ajker ei din ta amar kache onek beshi special, karon ajker ei dinei tumi ei prithibite esechile. Hoyto ami shobshomoy tomar jonno perfect hote pari na, hoyto tomar moner moto kore shobkichu korte pari na, but ekta kotha bisshash koro, ami tomake amar shobta diye bhalobashi. Amader ei 2 bochorer journey-te ami tomake onek bar kosto diyechi, abar onek hashi khushio rekhechi. Ami jani na ami koto ta bhalo boyfriend, but ami protita din try kori tomar moner moto ekjon manush howar. Hoyto shobshomoy pari na, but amar chesta kokhono kom thake na. 🥺❤️",
+"Akhu, tumi amar life-er emon ekjon manush je amar jibonta ek dike onek shohoj kore diyecho, abar onno dike onek tension-o bariye diyecho. Tumi amake jemon onek khushi diyecho, temni onek chintao diyecho. Ekhon amar mathay shudhu ekta tension, amar bou-ke ekta shundor bari baniye dite hobe, jekhane amra duijon mile thakbo. 😭😂❤️ Ar ha, duijon milei bari banabo, kemon? Tumi kintu tokhon na bolte parba na.",
+"Ami jani ajker dine hoyto tomar jonno temon special kichu korte parbo na. Shudhu ajke na, hoyto shobshomoy tomar iccha moto gift diteo parbo na. Ami jani tumi onek kichu deserve koro, ar ami shobshomoy sheta dite pari na. Tumi amar theke onek kichu pawar joggo, kintu majhe majhe amar kache sheta dewar moto shamortho thake na. Tobuo bisshash koro, tomake kichu dewar iccha amar kokhono kom na. Taka thakuk ba na thakuk, tomar jonno kichu korar icchata amar moddhe shobshomoy thakbe.",
+"Amar Akhu, ami chai tumi jibone kokhono kono kosto na pao. Tomar chokhe jeno kokhono mon kharap-er jol na ashe. Tomar protita shopno puron hok, tumi jibone onek boro hao, onek shukhe thako. Tomar jonno amar mon theke protidin ekta doa ber hoy, Allah jeno tomake shobshomoy bhalo rakhen. ❤️",
+"Ami tomake ondho bhalobashi Akhu. Ekhon emon ekta obostha hoye geche je tomake chara amar jibon-er kotha chinta koratao onek kothin lage. Ami chai amader ei shomporkota shudhu ajker jonno na, sara jiboner jonno hok. Biyer por ami chai tomar mukhe shobshomoy hashi thakuk. Ami chai amar bou-ke niye ekta shundor chotto songsar korte, jekhane amader onek shopno thakbe, onek paglami thakbe, majhe majhe jhogra hobe, abar shob bhule duijon duijonke joriye dhore shob thik kore nebo. 🥹❤️",
+"Ami promise kori na je amader jibone kokhono kono problem ashbe na, but ami chai protita problem-er shomoy tomar pashe thakte. Tomake bujhte, tomar rag obhiman shojjo korte, ar protita din notun kore tomake bhalobashte.",
+"Shesh e ekta kothai bolbo, tumi amar kache shudhu ekta manush na, tumi amar onek shopno, onek asha ar amar future-er ekta boro ongsho. Ami chai amar jiboner baki shomoytao tomar sathei katuk.",
+"Happy Birthday amar bou, amar Akhu, amar shobkichu! 😭❤️",
+"Allah jeno amader duijonke ekshathe rakhen, amader shob shopno puron koren ar ekdin amader nijeder shundor ekta bari hoy. Shei barite tumi, ami ar amader onek shundor kichu muhurto thakbe.",
+"I Love You So Much My Akhuuu. Ajke, agamikal, ar sara jibon. 🥺❤️🫂"];
+function Letter({onNext}){const[open,setOpen]=useState(false);
+return h("div",{className:"scr",style:{justifyContent:open?"flex-start":"center"}},
+!open?h(React.Fragment,null,h("h2",null,"A letter for you…"),h("div",{className:"env",onClick:()=>{sfx.win();setOpen(true)}},h("span",{style:{position:"relative",zIndex:2}},"💗")),h("p",null,"Tap the envelope to open it"))
+:h(React.Fragment,null,h("div",{className:"card rv",style:{padding:10,maxWidth:640}},h("div",{className:"letter"},h("h3",null,"💌 For Akhu"),LETTER.map((t,i)=>h("p",{key:i},t))),),
+h("button",{className:"btn pulse",onClick:()=>{sfx.click();onNext()}},"Continue ♡")))}
+/* ---------- app ---------- */
+function App(){
+const[scr,setScr]=useState("welcome"),[done,setDone]=useState(0),[g,setG]=useState(null),[mu,setMu]=useState(true);
+const go=s=>{window.scrollTo(0,0);setScr(s)};
+const finish=()=>{const n=g+1;setDone(Math.max(done,n));window.scrollTo(0,0);if(n>=4){setG(null);go("cake")}else setG(n)};
+const toggle=()=>{setMu(!mu);setMusic(!mu)};
+let body;
+if(scr==="welcome")body=h("div",{className:"scr"},h(Girl),h("h1",null,"Something Magical Awaits You..."),h("p",null,"Hey Akroti! This little magical world was created just for you."),
+h("button",{className:"btn pulse",onClick:()=>{ac();sfx.click();startMusic();go("intro")}},"Start Your Birthday Adventure ♡"),h("p",{className:"small"},"Complete 4 magical challenges to unlock your surprise!"));
+else if(scr==="intro")body=h("div",{className:"scr"},h("h2",null,"Akroti’s Magical Birthday Adventure"),h("div",{className:"card"},h("p",null,"Before your birthday surprise, I have 4 little challenges for you!"),h("br"),
+h("div",{className:"icons"},GAMES.map((x,i)=>{const st=i<done?"done":i===done?"next":"lock";return h("div",{key:i,className:"ic "+st,onClick:()=>{if(st==="next"){sfx.click();setG(i);go("game")}}},st==="lock"?"🔒":st==="done"?"✅":x.ic)})),h("br"),
+h("div",{className:"bar"},h("div",{style:{width:done*25+"%"}})),h("p",{style:{marginTop:8}},"Progress: "+done+"/4"),h("br"),
+h("button",{className:"btn pulse",onClick:()=>{sfx.click();setG(done);go("game")}},"Play: "+GAMES[Math.min(done,3)].name)));
+else if(scr==="game")body=h("div",{className:"scr"},h(Lvl,{key:"l"+g,n:g+1,t:GAMES[g].t,e:GAMES[g].e}),h("h2",null,"Game "+(g+1)+": "+GAMES[g].t),h("div",{className:"bar",style:{width:"100%",maxWidth:560}},h("div",{style:{width:done*25+"%"}})),
+h(React.Fragment,{key:g},GAMES[g].el(finish)),h("button",{className:"btn alt",style:{padding:"8px 18px",fontSize:14},onClick:()=>go("intro")},"← Back to map"));
+else if(scr==="cake")body=h(Cake,{onDone:()=>go("cele")});
+else if(scr==="cele")body=h(Celebrate,{onNext:()=>go("letter")});
+else if(scr==="letter")body=h(Letter,{onNext:()=>go("final")});
+else body=h("div",{className:"scr"},h(Confetti,{n:25}),h(Girl),h("h1",null,"Made with love, just for you."),h("h2",null,"From your Mithil ♡"),h("button",{className:"btn alt",onClick:()=>{sfx.click();setDone(0);setG(null);go("welcome")}},"Replay the Adventure ↺"));
+return h(React.Fragment,null,h(Bg),h("button",{className:"mtog","aria-label":"Toggle music",onClick:toggle},mu?"🎵":"🔇"),body)}
+ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script></body></html>
